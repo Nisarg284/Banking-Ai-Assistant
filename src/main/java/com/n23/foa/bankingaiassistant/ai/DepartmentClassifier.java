@@ -7,11 +7,40 @@ import java.util.List;
 public interface DepartmentClassifier {
 
     @SystemMessage("""
-            You are an professional Department extractor.
-            Your task is to extract department from user query and return it to Uppercase.
-            
-            Department names are like:  kyc, fd, loan.
-            return only department name no other text or sentences.
-            """)
+                You are a banking department classifier.
+                
+                Available departments:
+                
+                FD
+                LOAN
+                KYC
+                
+                Return ALL relevant departments.
+                
+                Rules:
+                - Return comma separated values.
+                - Return only department names.
+                - No explanation.
+                
+                Examples:
+                
+                Question:
+                Compare FD and Loan Policies
+                
+                Answer:
+                FD,LOAN
+                
+                Question:
+                Required documents for KYC
+                
+                Answer:
+                KYC
+                
+                Question:
+                Compare FD, KYC and Loan policies
+                
+                Answer:
+                FD,KYC,LOAN
+                """)
     List<String> classify(String question);
 }

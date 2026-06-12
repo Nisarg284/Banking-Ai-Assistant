@@ -48,16 +48,16 @@ public class BankingAssistantConfig {
                 .build();
     }
 
-    @Bean
-    public ContentRetriever contentRetriever(
-            EmbeddingStore<TextSegment> store,
-            EmbeddingModel embeddingModel
-    ){
-        return EmbeddingStoreContentRetriever.builder()
-                .embeddingStore(store)
-                .embeddingModel(embeddingModel)
-                .minScore(0.8)
-                .maxResults(3)
-                .build();
-    }
+//    @Bean
+//    public ContentRetriever contentRetriever(
+//            EmbeddingStore<TextSegment> store,
+//            EmbeddingModel embeddingModel
+//    ){
+//        return EmbeddingStoreContentRetriever.builder()
+//                .embeddingStore(store)
+//                .embeddingModel(embeddingModel)
+//                .minScore(0.8)
+//                .maxResults(3)
+//                .build();
+//    }
 }

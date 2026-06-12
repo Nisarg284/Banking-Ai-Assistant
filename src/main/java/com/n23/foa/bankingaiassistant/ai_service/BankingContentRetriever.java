@@ -72,6 +72,17 @@ public class BankingContentRetriever implements ContentRetriever {
                     return content;
                 }).toList();
 
+        System.out.println("========= RETRIEVED =========");
+        System.out.println("========= result matches size %s ========="+result.matches().size());
+
+
+        result.matches().forEach(
+                match -> {
+                    System.out.println("-------->"+match.embedded().text());
+                }
+        );
+        System.out.println("=============================");
+
         return list;
     }
 }

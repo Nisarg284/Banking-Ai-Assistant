@@ -2,6 +2,8 @@ package com.n23.foa.bankingaiassistant.config;
 
 import com.n23.foa.bankingaiassistant.ai.BankingAssistant;
 import com.n23.foa.bankingaiassistant.ai_service.BankingContentRetriever;
+import com.n23.foa.bankingaiassistant.tools.EligibilityTool;
+import com.n23.foa.bankingaiassistant.tools.EmiTool;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
@@ -29,6 +31,8 @@ public class BankingAssistantConfig {
     private String baseUrl;
 
 
+
+
     @Bean
     public ChatModel chatModel(){
         return OpenAiChatModel.builder()
@@ -40,11 +44,14 @@ public class BankingAssistantConfig {
 
     @Bean
     public BankingAssistant bankingAssistant(ChatModel chatModel
-    , BankingContentRetriever bankingContentRetriever){
+    , BankingContentRetriever bankingContentRetriever
+    , EmiTool emiTool
+            , EligibilityTool eligibilityTool){
         return AiServices.builder(BankingAssistant.class)
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(20))
                 .chatModel(chatModel)
                 .contentRetriever(bankingContentRetriever)
+                .tools(emiTool,eligibilityTool)
                 .build();
     }
 

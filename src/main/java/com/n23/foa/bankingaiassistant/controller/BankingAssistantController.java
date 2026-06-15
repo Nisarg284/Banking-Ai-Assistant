@@ -18,7 +18,7 @@ public class BankingAssistantController {
     }
 
     @GetMapping("/ask")
-    public String ask(@RequestBody String question){
+    public Object ask(@RequestBody String question){
         return bankingAssistant.chat(question);
     }
 }

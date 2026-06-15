@@ -12,13 +12,11 @@ import org.springframework.context.annotation.Configuration;
 public class CustomerInfoExtractorConfig {
 
     @Bean CustomerExtractor customerExtractor(
-            ChatModel chatModel,
-            BankingContentRetriever bankingContentRetriever
+            ChatModel chatModel
     ){
         return AiServices.builder(CustomerExtractor.class)
                 .chatModel(chatModel)
                 .chatMemory(MessageWindowChatMemory.withMaxMessages(20))
-                .contentRetriever(bankingContentRetriever)
                 .build();
     }
 }

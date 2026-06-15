@@ -9,5 +9,5 @@ public interface CustomerExtractor {
     @SystemMessage("""
             Extract customer information from the given text.
             """)
-    CustomerInfo extract(String text, BankingAssistant bankingAssistant);
+    CustomerInfo extract(String text);
 }

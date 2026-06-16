@@ -15,6 +15,7 @@ import dev.langchain4j.store.embedding.filter.Filter;
 import dev.langchain4j.store.embedding.filter.MetadataFilterBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class BankingContentRetriever implements ContentRetriever {
     private final EmbeddingModel embeddingModel;
     private final EmbeddingStore<TextSegment> embeddingStore;
     private final DepartmentClassifier departmentClassifier;
+
 
     public BankingContentRetriever(EmbeddingModel embeddingModel, EmbeddingStore<TextSegment> embeddingStore, DepartmentClassifier departmentClassifier) {
         this.embeddingModel = embeddingModel;

@@ -3,3 +3,14 @@ spring:
     name: Banking Ai Assistant
 
 
+groq:
+#  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
+  api-key: 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
+#  llama-3.1-8b-instant
+  model-name: llama-3.3-70b-versatile
+  base-url: https://api.groq.com/openai/v1
+
+qdrant:
+  host-name: localhost
+  port: 6334
+  collection-name: company_docs

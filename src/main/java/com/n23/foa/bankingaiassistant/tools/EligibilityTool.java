@@ -7,35 +7,61 @@ import org.springframework.stereotype.Component;
 @Component
 public class EligibilityTool {
 
-    @Tool("Check loan eligibility based on age and loan amount")
+    private static final int MIN_AGE = 21;
+    private static final int MAX_AGE = 60;
+    private static final double MAX_LOAN_AMOUNT = 20_00_000;
+
+    @Tool("""
+            Check loan eligibility.
+            
+            Call this tool only when customer's age
+            and requested loan amount are known.
+            """)
     public EligibilityResult checkEligibility(
-            int currAge,
-            int minAge,
-            int maxAge,
-            double currAmount,
-            double maxAmount)
-    {
+            Integer currAge,
+            Double currAmount
+    ) {
+
         System.out.println("Inside check eligibility tool");
 
-        if(currAge < minAge){
+        if (currAge == null) {
+            return new EligibilityResult(
+                    false,
+                    "Customer age is missing"
+            );
+        }
+
+        if (currAmount == null) {
+            return new EligibilityResult(
+                    false,
+                    "Requested loan amount is missing"
+            );
+        }
+
+        if (currAge < MIN_AGE) {
             return new EligibilityResult(
                     false,
                     "Age is below minimum age"
             );
         }
 
-
-        if(currAge > maxAge){
+        if (currAge > MAX_AGE) {
             return new EligibilityResult(
                     false,
-                    "Age exceeds  minimum allowed age"
+                    "Age exceeds maximum allowed age"
             );
         }
 
-        if(currAmount > maxAmount){
-            return new EligibilityResult(false,"Requested loan amount exceed maximum allowed amount.");
+        if (currAmount > MAX_LOAN_AMOUNT) {
+            return new EligibilityResult(
+                    false,
+                    "Requested loan amount exceeds maximum allowed amount"
+            );
         }
-        return new EligibilityResult(true,"Customer is eligible");
 
+        return new EligibilityResult(
+                true,
+                "Customer is eligible"
+        );
     }
 }

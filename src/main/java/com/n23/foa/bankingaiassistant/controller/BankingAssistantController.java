@@ -2,13 +2,11 @@ package com.n23.foa.bankingaiassistant.controller;
 
 
 import com.n23.foa.bankingaiassistant.ai.BankingAssistant;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/assistant")
+@CrossOrigin(origins = "*")
 public class BankingAssistantController {
 
     private final BankingAssistant bankingAssistant;
@@ -17,7 +15,7 @@ public class BankingAssistantController {
         this.bankingAssistant = bankingAssistant;
     }
 
-    @GetMapping("/ask")
+    @PostMapping("/ask")
     public Object ask(@RequestBody String question){
         return bankingAssistant.chat(question);
     }

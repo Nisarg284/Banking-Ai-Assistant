@@ -6,12 +6,15 @@ import dev.langchain4j.data.document.splitter.DocumentSplitters;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.embedding.onnx.allminilml6v2.AllMiniLmL6V2EmbeddingModel;
+import dev.langchain4j.model.huggingface.HuggingFaceEmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.filter.Filter;
 import dev.langchain4j.store.embedding.qdrant.QdrantEmbeddingStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.Duration;
 
 @Configuration
 public class EmbeddingConfig {
@@ -25,9 +28,18 @@ public class EmbeddingConfig {
     @Value("${qdrant.collection-name}")
     private String collectionName;
 
+    @Value("${huggingface.api-key}")
+    private String huggingFaceApiKey;
+
     @Bean
     public EmbeddingModel embeddingModel(){
-        return new AllMiniLmL6V2EmbeddingModel();
+        return HuggingFaceEmbeddingModel.builder()
+                .accessToken(huggingFaceApiKey)
+                .modelId("sentence-transformers/all-MiniLM-L6-v2")
+                .timeout(Duration.ofSeconds(15))
+                .waitForModel(true)
+                .build();
+
     }
 
 

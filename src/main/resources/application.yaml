@@ -12,3 +12,6 @@ qdrant:
   host-name: ${QDRANT_HOST_NAME}
   port: ${QDRANT_PORT}
   collection-name: company_docs
+
+huggingface:
+  api-key: ${HUGGINGFACE_API_KEY}

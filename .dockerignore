@@ -1,0 +1,13 @@
+# Ignore build output and IDE files to reduce Docker build context
+target
+.git
+.gitignore
+.idea
+.vscode
+*.iml
+.mvn
+.m2
+**/node_modules
+**/dist
+.DS_Store
+

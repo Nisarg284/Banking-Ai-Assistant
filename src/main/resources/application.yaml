@@ -9,9 +9,10 @@ groq:
   base-url: https://api.groq.com/openai/v1
 
 qdrant:
+  api-key: ${QDRANT_API_KEY}
   host-name: ${QDRANT_HOST_NAME}
   port: ${QDRANT_PORT}
-  collection-name: company_docs
+  collection-name: banking-docs
 
 huggingface:
   api-key: ${HUGGINGFACE_API_KEY}

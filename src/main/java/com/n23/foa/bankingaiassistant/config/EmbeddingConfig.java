@@ -10,6 +10,7 @@ import dev.langchain4j.model.huggingface.HuggingFaceEmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.filter.Filter;
 import dev.langchain4j.store.embedding.qdrant.QdrantEmbeddingStore;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,9 @@ public class EmbeddingConfig {
     @Value("${huggingface.api-key}")
     private String huggingFaceApiKey;
 
+    @Value("${qdrant.api-key}")
+    private String qdrantApiKey;
+
     @Bean
     public EmbeddingModel embeddingModel(){
         return HuggingFaceEmbeddingModel.builder()
@@ -43,15 +47,25 @@ public class EmbeddingConfig {
     }
 
 
-    @Bean
-    public EmbeddingStore<TextSegment> embeddingStore(){
-        return QdrantEmbeddingStore.builder()
-                .host(qdrantHost)
-                .port(port)
-                .collectionName(collectionName)
-                .useTls(false)
-                .build();
-    }
+//    @Bean
+//    public EmbeddingStore<TextSegment> embeddingStore(){
+//        return QdrantEmbeddingStore.builder()
+//                .host(qdrantHost)
+//                .port(port)
+//                .collectionName(collectionName)
+//                .useTls(true)
+//                .build();
+//    }
+@Bean
+public EmbeddingStore<TextSegment> embeddingStore() {
+    return QdrantEmbeddingStore.builder()
+            .host(qdrantHost)
+            .port(port)
+            .apiKey(qdrantApiKey)
+            .collectionName(collectionName)
+            .useTls(true)
+            .build();
+}
 
 
 

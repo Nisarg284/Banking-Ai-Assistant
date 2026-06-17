@@ -2,6 +2,7 @@ package com.n23.foa.bankingaiassistant.tools;
 
 
 import com.n23.foa.bankingaiassistant.dto.EmiResult;
+import dev.langchain4j.agent.tool.P;
 import dev.langchain4j.agent.tool.Tool;
 import org.apache.james.mime4j.dom.datetime.DateTime;
 import org.apache.poi.hwpf.usermodel.DateAndTime;
@@ -16,11 +17,11 @@ public class EmiTool {
 
 
 
-    @Tool("Calculate EMI for a loan.")
+    @Tool("Calculates the Equated Monthly Installment (EMI) for a loan.")
     public EmiResult calculateEmi(
-            double principleAmount,
-            double annualRate,
-            int years
+            @P("The total principal loan amount (e.g., 500000)") double principleAmount,
+            @P("The annual interest rate in percentage (e.g., 8.5 for 8.5%)") double annualRate,
+            @P("The total duration of the loan in years (e.g., 15)") int years
     ){
 
         System.out.println("principle amount: "+principleAmount);

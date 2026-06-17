@@ -11,12 +11,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DepartmentExtractorConfig {
 
-    private final ChatModel chatModel;
-
-    public DepartmentExtractorConfig(ChatModel chatModel) {
-        this.chatModel = chatModel;
-    }
-
 
     @Bean
     public DepartmentClassifier departmentClassifier(ChatModel chatModel){

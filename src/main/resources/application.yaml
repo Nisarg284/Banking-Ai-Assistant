@@ -5,8 +5,10 @@ spring:
 
 groq:
   api-key: ${GROQ_API_KEY}
-  model-name: llama-3.3-70b-versatile
-  base-url: https://api.groq.com/openai/v1
+  model-name: ${AI_MODEL_NAME}
+#  llama-3.3-70b-versatile
+  base-url: ${AI_BASE_URL}
+#  https://api.groq.com/openai/v1
 
 qdrant:
   api-key: ${QDRANT_API_KEY}
@@ -16,3 +18,6 @@ qdrant:
 
 huggingface:
   api-key: ${HUGGINGFACE_API_KEY}
+
+
+# sarwam Ai : sk_k9km5yf7_2mN5a9GOPub7UlCFtQsEYp1l+

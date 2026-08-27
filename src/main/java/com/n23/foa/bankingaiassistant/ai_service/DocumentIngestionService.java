@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DocumentIngestionService {
@@ -64,6 +65,7 @@ public class DocumentIngestionService {
                 .toUpperCase();
 
         metadata.put("department",metaInfo);
+
 
         // step 2: now fetching all data from that files and store it into string
         String content = resource.getContentAsString(StandardCharsets.UTF_8);

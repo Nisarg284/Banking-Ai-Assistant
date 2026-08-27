@@ -18,7 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class BankingContentRetriever implements ContentRetriever {
@@ -42,10 +45,7 @@ public class BankingContentRetriever implements ContentRetriever {
         String question = query.text();
 
 
-        List<String> department = departmentClassifier.classify(question)
-//                .trim()
-//                .toUpperCase()
-                ;
+        List<String> department = resolveDepartments(question);
         System.out.println(department);
 
         Embedding queryEmbedding = embeddingModel.embed(question)
@@ -86,5 +86,27 @@ public class BankingContentRetriever implements ContentRetriever {
         System.out.println("=============================");
 
         return list;
+    }
+
+    private List<String> resolveDepartments(String question) {
+        Set<String> departments = new LinkedHashSet<>();
+        try {
+            String raw = departmentClassifier.classify(question);
+            if (raw != null) {
+                Arrays.stream(raw.split(","))
+                        .map(value -> value.replaceAll("[\\[\\]\\\"]", "").trim().toUpperCase())
+                        .filter(Set.of("FD", "LOAN", "KYC")::contains)
+                        .forEach(departments::add);
+            }
+        } catch (RuntimeException ex) {
+            log.warn("Department classification failed; using keyword fallback", ex);
+        }
+
+        String normalizedQuestion = question.toUpperCase();
+        if (normalizedQuestion.contains("FD") || normalizedQuestion.contains("FIXED DEPOSIT")) departments.add("FD");
+        if (normalizedQuestion.contains("LOAN") || normalizedQuestion.contains("EMI") || normalizedQuestion.contains("ELIGIB")) departments.add("LOAN");
+        if (normalizedQuestion.contains("KYC") || normalizedQuestion.contains("DOCUMENT")) departments.add("KYC");
+
+        return departments.isEmpty() ? List.of("FD", "LOAN", "KYC") : List.copyOf(departments);
     }
 }

@@ -12,6 +12,7 @@ import dev.langchain4j.store.embedding.filter.MetadataFilterBuilder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -59,7 +60,11 @@ public class RetrievalService {
 
     public void search(String question) throws IOException {
 
-        List<String> departmentExtractor = departmentClassifier.classify(question);
+        List<String> departmentExtractor = Arrays.stream(departmentClassifier.classify(question).split(","))
+                .map(String::trim)
+                .map(String::toUpperCase)
+                .filter(value -> !value.isBlank())
+                .toList();
 
         // Step 1: User ki query ki embeddings nikalo
         Embedding queryEmbedding = embeddingModel

@@ -15,12 +15,12 @@ public interface DepartmentClassifier {
                 LOAN
                 KYC
                 
-                Return ALL relevant departments.
+                Return ALL relevant departments as one comma-separated string.
                 
                 Rules:
-                - Return comma separated values.
-                - Return only department names.
-                - No explanation.
+                - Return only department names: FD, LOAN, and/or KYC.
+                - Separate multiple department names with commas.
+                - Do not return JSON, brackets, or an explanation.
                 
                 Examples:
                 
@@ -42,5 +42,5 @@ public interface DepartmentClassifier {
                 Answer:
                 FD,KYC,LOAN
                 """)
-    List<String> classify(String question);
+    String classify(String question);
 }

@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "*")
 public class TestController {
 
     private static final Logger log = LoggerFactory.getLogger(TestController.class);

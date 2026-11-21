@@ -7,13 +7,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/assistant")
-@CrossOrigin(origins = "*")
 public class BankingAssistantController {
 
     private static final Logger log = LoggerFactory.getLogger(BankingAssistantController.class);

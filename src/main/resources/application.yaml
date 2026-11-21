@@ -16,9 +16,6 @@ qdrant:
   port: ${QDRANT_PORT:6334}
   collection-name: ${QDRANT_COLLECTION_NAME:banking-docs}
 
-huggingface:
-  api-key: ${HUGGINGFACE_API_KEY:}
-
 management:
   endpoints:
     web:

@@ -1,23 +1,29 @@
 spring:
   application:
     name: Banking Ai Assistant
-
+  threads:
+    virtual:
+      enabled: true
 
 groq:
-  api-key: ${GROQ_API_KEY}
-  model-name: ${AI_MODEL_NAME}
-#  llama-3.3-70b-versatile
-  base-url: ${AI_BASE_URL}
-#  https://api.groq.com/openai/v1
+  api-key: ${GROQ_API_KEY:}
+  model-name: ${AI_MODEL_NAME:llama-3.3-70b-versatile}
+  base-url: ${AI_BASE_URL:https://api.groq.com/openai/v1}
 
 qdrant:
-  api-key: ${QDRANT_API_KEY}
-  host-name: ${QDRANT_HOST_NAME}
-  port: ${QDRANT_PORT}
-  collection-name: banking-docs
+  api-key: ${QDRANT_API_KEY:}
+  host-name: ${QDRANT_HOST_NAME:localhost}
+  port: ${QDRANT_PORT:6334}
+  collection-name: ${QDRANT_COLLECTION_NAME:banking-docs}
 
 huggingface:
-  api-key: ${HUGGINGFACE_API_KEY}
+  api-key: ${HUGGINGFACE_API_KEY:}
 
-
-# sarwam Ai : sk_k9km5yf7_2mN5a9GOPub7UlCFtQsEYp1l+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
